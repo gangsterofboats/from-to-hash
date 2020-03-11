@@ -1,16 +1,14 @@
 def to_hash(input)
   letters = 'acdegilmnoprstuw'
   h = 7
-  input_ltrs = input.chars
   0.upto(input.length - 1) do |i|
-    h = (h * 37 + letters.index(input_ltrs[i]))
+    h = (h * 37 + letters.index(input[i]))
   end
   return h
 end
 
 def from_hash(input, length)
   letters = 'acdegilmnoprstuw'
-  input = input.to_i
   output = ''
   length.downto(1) do |i|
     ltr_index = 0
@@ -25,4 +23,4 @@ def from_hash(input, length)
 end
 
 puts to_hash('leepadg')
-puts from_hash('910897038977002', 9)
+puts from_hash(910897038977002, 9)
