@@ -1,24 +1,23 @@
-def to_hash(input):
-    letters = 'acdegilmnoprstuw'
-    h = 7
-    input_ltrs = list(input)
+def to_hash(input: str) -> int:
+    letters: str = 'acdegilmnoprstuw'
+    h: int = 7
+
+    i: int
     for i in range(len(input)):
-        h = (h * 37 + letters.index(input_ltrs[i]))
+        h = (h * 37 + letters.index(input[i]))
     return h
 
-def from_hash(input, length):
-    letters = 'acdegilmnoprstuw'
-    input = int(input)
-    output = ''
+def from_hash(input: int, length: int) -> str:
+    letters: str = 'acdegilmnoprstuw'
+    output: str = ''
     for _ in range(length):
-        ltr_index = 0
-        for i in range(16):
-            ltr_index = i
-            if (input - i) % 37 == 0:
-                break
-        input = (input - ltr_index) / 37
-        output += letters[ltr_index]
+        index: int = 0
+        h: int
+        while ((h := (input - index) % 37) != 0):
+            index += 1
+        input = (input - index) // 37
+        output += letters[index]
     return output[::-1]
 
-# print(to_hash('leepadg'))
-print(from_hash('910897038977002', 9))
+print(to_hash('leepadg'))
+print(from_hash(910897038977002, 9))
