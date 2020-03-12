@@ -16,20 +16,16 @@
 # You should have received a copy of the GNU Affero General Public License  #
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.    #
 #############################################################################
-
-use strict;
-use warnings;
-use feature 'say';
+use common::sense;
 
 sub to_hash
 {
     my $input = shift;
     my $letters = 'acdegilmnoprstuw';
     my $h = 7;
-    my @input_ltrs = split('', $input);
     for my $i (0..(length $input) - 1)
     {
-        $h = ($h * 37 + index($letters, $input_ltrs[$i]));
+        $h = ($h * 37 + index($letters, substr($input, $i, 1)));
     }
 
     return $h;
@@ -37,23 +33,23 @@ sub to_hash
 
 sub from_hash
 {
-    my $input = shift;
-    my $length = shift;
-    my @letters = ('a', 'c', 'd', 'e', 'g', 'i', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'w');
+    my ($input, $length) = (@_);
+    my $letters = 'acdegilmnoprstuw';
     my $output = '';
     for my $i (1..$length)
     {
-        my $ltr_index = 0;
-        for my $j (0..15)
+        my $index = 0;
+        my $h = ($input - $index) % 37;
+        while ($h != 0)
         {
-            $ltr_index = $j;
-            last if ($input - $j) % 37 == 0;
+            $index++;
+            $h = ($input - $index) % 37;
         }
-        $input = ($input - $ltr_index) / 37;
-        $output .= $letters[$ltr_index];
+        $input = ($input - $index) / 37;
+        $output .= substr($letters, $index, 1);
     }
     return scalar reverse $output;
 }
 
 say to_hash('leepadg');
-say from_hash('910897038977002', 9);
+say from_hash(910897038977002, 9);
