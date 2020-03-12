@@ -1,3 +1,4 @@
+#!/usr/bin/env perl6
 #############################################################################
 # FromToHash - Solve a job interview puzzle                                 #
 # Copyright (C) 2020 Michael Wiseman                                        #
@@ -16,37 +17,37 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.    #
 #############################################################################
 
-sub to-hash(Str $input)
+sub to-hash(Str $input --> Int)
 {
-    my $letters = 'acdegilmnoprstuw';
-    my $h = 7;
-    my @input-ltrs = $input.split('', :skip-empty);
-    for (0..^$input.chars) -> $i
+    my Str $letters = 'acdegilmnoprstuw';
+    my Int $h = 7;
+    for (0..^$input.chars) -> int $i
     {
-        $h = ($h * 37 + $letters.index(@input-ltrs[$i]));
+        $h = ($h * 37 + $letters.index(substr($input, $i, 1)));
     }
 
     return $h;
 }
 
-sub from-hash(Str $hash, Int $length)
+sub from-hash(Int $hash, Int $length --> Str)
 {
-    my @letters = <a c d e g i l m n o p r s t u w>;
-    my $input = $hash.Int;
-    my $output = '';
-    for ($length ... 1) -> $i
+    my Int $input = $hash;
+    my Str $letters = 'acdegilmnoprstuw';
+    my Str $output = '';
+    for ($length ... 1) -> int $i
     {
-        my $ltr-index = 0;
-        for (0..15) -> $j
+        my Int $index = 0;
+        my Int $h = ($input - $index) % 37;
+        while ($h != 0)
         {
-            $ltr-index = $j;
-            last if ($input - $j) % 37 == 0;
+            $index++;
+            $h = ($input - $index) % 37;
         }
-        $input = ($input - $ltr-index) / 37;
-        $output ~= @letters[$ltr-index];
+        $input = Int(($input - $index) / 37);
+        $output ~= substr($letters, $index, 1);
     }
     return $output.flip;
 }
 
 say to-hash('leepadg');
-say from-hash('910897038977002', 9);
+say from-hash(910897038977002, 9);
