@@ -29,14 +29,15 @@ end
 def from_hash(input, length)
   letters = 'acdegilmnoprstuw'
   output = ''
-  length.downto(1) do |i|
-    ltr_index = 0
-    0.upto(15) do |j|
-      ltr_index = j
-      break if (input - j) % 37 == 0
+  length.downto(1) do
+    index = 0
+    h = (input - index) % 37
+    while (h != 0)
+      index += 1
+      h = (input - index) % 37
     end
-    input = (input - ltr_index) / 37
-    output += letters[ltr_index]
+    input = (input - index) / 37
+    output += letters[index]
   end
   return output.reverse
 end
