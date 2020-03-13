@@ -44,9 +44,9 @@ sub from-hash(Int $hash, Int $length --> Str)
             $h = ($input - $index) % 37;
         }
         $input = Int(($input - $index) / 37);
-        $output ~= substr($letters, $index, 1);
+        $output = substr($letters, $index, 1) ~ $output;
     }
-    return $output.flip;
+    return $output;
 }
 
 say to-hash('leepadg');
