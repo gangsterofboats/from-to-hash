@@ -46,9 +46,9 @@ sub from_hash
             $h = ($input - $index) % 37;
         }
         $input = ($input - $index) / 37;
-        $output .= substr($letters, $index, 1);
+        $output = substr($letters, $index, 1) . $output;
     }
-    return scalar reverse $output;
+    return $output;
 }
 
 say to_hash('leepadg');
