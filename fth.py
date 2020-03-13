@@ -35,8 +35,8 @@ def from_hash(input: int, length: int) -> str:
         while ((h := (input - index) % 37) != 0):
             index += 1
         input = (input - index) // 37
-        output += letters[index]
-    return output[::-1]
+        output = letters[index] + output
+    return output
 
 print(to_hash('leepadg'))
 print(from_hash(910897038977002, 9))
