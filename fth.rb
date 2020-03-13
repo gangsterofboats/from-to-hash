@@ -37,9 +37,9 @@ def from_hash(input, length)
       h = (input - index) % 37
     end
     input = (input - index) / 37
-    output += letters[index]
+    output = letters[index] + output
   end
-  return output.reverse
+  return output
 end
 
 puts to_hash('leepadg')
