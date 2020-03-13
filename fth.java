@@ -30,11 +30,10 @@ public class FromToHash
         return h;
     }
 
-    public static StringBuilder from_hash(long input, int length)
+    public static String from_hash(long input, int length)
     {
         String letters = "acdegilmnoprstuw";
         String output = "";
-        StringBuilder sb = new StringBuilder();
 
         for (int i = length; i >= 1; i--)
         {
@@ -46,17 +45,16 @@ public class FromToHash
                 h = (input - index) % 37;
             }
             input = (input - index)/37;
-            output += letters.charAt(index);
+            output = letters.charAt(index) + output;
         }
-        sb.append(output);
 
-        return sb.reverse();
+        return output;
     }
 
     public static void main(String[] args)
     {
         long test_th = to_hash("leepadg");
-        StringBuilder test_fh = from_hash(910897038977002L, 9);
+        String test_fh = from_hash(910897038977002L, 9);
         System.out.println(test_th);
         System.out.println(test_fh);
     }
