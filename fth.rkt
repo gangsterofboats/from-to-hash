@@ -38,8 +38,7 @@
       (set! h (modulo (- input index) 37))
       (set! l-index index))
     (set! input (exact-round (/ (- input l-index) 37)))
-    (set! output (string-append output (string (string-ref letters l-index)))))
-  (set! output (string-reverse output))
+    (set! output (string-append (string (string-ref letters l-index)) output)))
   (values output))
 
 (define test-th (to-hash "leepadg"))
