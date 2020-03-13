@@ -44,13 +44,13 @@ function from_hash(input: number, length: number): string
             h = (input - index) % 37;
         }
         input = (input - index)/37;
-        output += letters[index];
+        output = letters[index] + output;
     }
 
-    return output.split('').reverse().join('');
+    return output
 }
 
 let test_th = to_hash('leepadg');
-let test_fh = from_hash(910897038977002, 9);
 console.log(test_th);
+let test_fh = from_hash(910897038977002, 9);
 console.log(test_fh);
